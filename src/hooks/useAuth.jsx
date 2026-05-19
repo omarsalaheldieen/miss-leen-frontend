@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import client from '../api/client';
 
 const AuthContext = createContext(null);
 
@@ -12,7 +11,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      client.get('/auth/me')
+      axios.get('/api/auth/me')
         .then(r => setUser(r.data))
         .catch(() => logout())
         .finally(() => setLoading(false));
@@ -22,8 +21,8 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (username, password) => {
-    const data = await client.post('/auth/login', { username, password }).then(r => r.data);
-    const { token: t, user: u } = data;
+    const res = await axios.post('/api/auth/login', { username, password });
+    const { token: t, user: u } = res.data;
     localStorage.setItem('ml_token', t);
     axios.defaults.headers.common['Authorization'] = `Bearer ${t}`;
     setToken(t); setUser(u);
