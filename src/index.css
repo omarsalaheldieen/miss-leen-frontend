@@ -1,0 +1,213 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --red: #CC1010;
+  --red-dark: #A00C0C;
+  --red-light: #FF1A1A;
+  --red-bg: #FFF5F5;
+  --black: #1A1A1A;
+  --black-soft: #2D2D2D;
+  --gray-dark: #4A4A4A;
+  --gray: #767676;
+  --gray-light: #B0B0B0;
+  --gray-border: #E0E0E0;
+  --gray-bg: #F7F7F7;
+  --white: #FFFFFF;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.08);
+  --shadow: 0 2px 12px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.14);
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --font: 'Cairo', sans-serif;
+}
+
+html, body {
+  font-family: var(--font);
+  background: var(--white);
+  color: var(--black);
+  direction: rtl;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--gray-bg); }
+::-webkit-scrollbar-thumb { background: var(--gray-light); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gray); }
+
+/* Inputs */
+input, select, textarea {
+  font-family: var(--font);
+  direction: rtl;
+}
+
+button {
+  font-family: var(--font);
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade { animation: fadeIn 0.35s ease forwards; }
+.animate-right { animation: fadeInRight 0.3s ease forwards; }
+.animate-down { animation: slideDown 0.25s ease forwards; }
+.page { animation: fadeIn 0.3s ease; }
+
+
+/* ═══════════════════════════════════════════
+   DASHBOARD LAYOUT — RESPONSIVE
+═══════════════════════════════════════════ */
+
+/* Sidebar hidden on mobile by default */
+@media (max-width: 768px) {
+
+  /* Shell: stack vertically on mobile */
+  .shell-layout {
+    flex-direction: column !important;
+  }
+
+  /* Sidebar: slide in from right (RTL) */
+  .sidebar-el {
+    position: fixed !important;
+    right: -260px !important;
+    top: 0 !important;
+    height: 100vh !important;
+    z-index: 200 !important;
+    transition: right 0.28s ease !important;
+    min-height: 100vh !important;
+  }
+  .sidebar-el.open {
+    right: 0 !important;
+  }
+
+  /* Hamburger always visible on mobile */
+  .menu-btn-el {
+    display: flex !important;
+  }
+
+  /* Hide date on mobile topbar */
+  .topbar-date-el {
+    display: none !important;
+  }
+
+  /* Tighter content padding */
+  .main-content-el {
+    padding: 14px !important;
+  }
+
+  /* Stats grid: 2 columns on mobile */
+  .stats-row-el {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  /* Table: horizontal scroll on mobile */
+  .table-wrap-el {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Form grid: 1 column on mobile */
+  .form-grid-el {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Page header: stack on mobile */
+  .page-header-el {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .page-header-el .add-btn-el {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Login card: full width on mobile */
+  .login-card-el {
+    padding: 32px 20px 24px !important;
+    border-radius: 16px !important;
+  }
+
+  .login-logo-el img {
+    max-width: 150px !important;
+    max-height: 75px !important;
+  }
+
+  /* Modal: full width on mobile */
+  .modal-inner-el {
+    border-radius: 14px !important;
+    max-width: 100% !important;
+    margin: 0 8px !important;
+  }
+
+  /* Topbar title: smaller on mobile */
+  .topbar-title-el {
+    font-size: 15px !important;
+  }
+
+  /* Action buttons: smaller on mobile */
+  .action-btns-el {
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
+}
+
+/* Medium tablets */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .main-content-el {
+    padding: 20px !important;
+  }
+  .stats-row-el {
+    flex-wrap: wrap !important;
+  }
+  .stats-row-el > * {
+    min-width: calc(50% - 7px) !important;
+  }
+}
+
+/* Desktop: hamburger hidden */
+@media (min-width: 769px) {
+  .menu-btn-el {
+    display: none !important;
+  }
+}
