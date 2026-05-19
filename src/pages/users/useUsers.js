@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { DEPS, PERMISSION_GROUPS } from '../../utils/permissions';
+import { DEPS, PERMISSION_GROUPS } from '../../constants/permissions';
 
 const EMPTY_FORM = { username: '', password: '', full_name: '', role: 'viewer', permissions: [], is_active: true };
 
